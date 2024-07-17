@@ -1,32 +1,49 @@
+setmode (25,80)
+set date British
+set epoch to 1940
+set scoreboard off
+set century on
+
 clear
 
-nNumeroUm     := 0
-nNumeroDois   := 0
+cPictureGets := "@e 999,999.99"
+cPictureSay  := "@e 999,999,999,999.99999"
 
-@ 01,01 to 10,40
+do while .t.
+   
+   clear
 
-@ 02,02 say " Digite os numeros a serem calculados"
-@ 03,02 say " Primeiro numero e   "
-@ 04,02 say " Segundo  numero e   "
-@ 06,02 say " A soma deles e      "
-@ 07,02 say " A subtracao deles e "
-@ 08,02 say " O produto deles e   "
-@ 09,02 say " A divisao deles e   "
+   nNumeroUm     := 0
+   nNumeroDois   := 0
 
-@ 03,22 get nNumeroUm   picture "@e 999.99"
-@ 04,22 get nNumeroDois picture "@e 999.99"
-read
+   @ 01,01 to 10,46
 
-nNumeroTres   := nNumeroUm + nNumeroDois
-nNumeroQuatro := nNumeroUm - nNumeroDois
-nNumeroCinco  := nNumeroUm / nNumeroDois
-nNumeroSeis   := nNumeroUm * nNumeroDois
+   @ 02,02 say " Digite os numeros a serem calculados"
+   @ 03,02 say " Primeiro numero e.: "
+   @ 04,02 say " Segundo  numero e.: "
+ 
+   @ 03,22 get nNumeroUm   picture cPictureGets valid nNumeroUm >= 0
+   @ 04,22 get nNumeroDois picture cPictureGets valid nNumeroDois >= 0
+   read
 
-@ 06,27 say nNumeroTres   picture "@e 999,999.9999"
-@ 07,27 say nNumeroQuatro picture "@e 999,999.9999"
-@ 08,27 say nNumeroSeis   picture "@e 999,999.9999"
-@ 09,27 say nNumeroCinco  picture "@e 999,999.9999"
+   if LastKey() == 27
+      nOpcao := Alert( "Deseja Sair do Programa?", {"Sim","Nao"}, "N/W" )
+      if nOpcao == 1
+         exit
+      else
+         loop
+      endif
+   endif
 
-@ 11,22 say ""
+   nNumeroSomado       := nNumeroUm + nNumeroDois
+   nNumeroSubtraido    := nNumeroUm - nNumeroDois
+   nNumeroDividido     := nNumeroUm / nNumeroDois
+   nNumeroMultiplicado := nNumeroUm * nNumeroDois
+   
+   @ 06,02 say " A soma deles e......: " + Transform( nNumeroSomado, cPictureSay )
+   @ 07,02 say " A subtracao deles e.: " + Transform( nNumeroSubtraido, cPictureSay )
+   @ 08,02 say " O produto deles e...: " + Transform( nNumeroMultiplicado, cPictureSay )
+   @ 09,02 say " A divisao deles e...: " + Transform( nNumeroDividido, cPictureSay )
+   Inkey(0)
 
-
+enddo

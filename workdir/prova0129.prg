@@ -1,4 +1,4 @@
-// JoÆo Pedro Ricardo
+// JoÃ£o Pedro Ricardo
 //
 //
 
@@ -34,7 +34,7 @@ cConselho1        := Space(1)
 cConselho2        := Space(1)
 cConselho3        := Space(1)
 
-//Dados institui‡Æo
+//Dados instituiÃ§Ã£o
 cNomeInstituicao     := "UniSG - Universidade unida da SG."
 cEnderecoInstituicao := "Aquela Rua Numero 560"
 
@@ -93,7 +93,7 @@ nFaltasTotaisDisciplina := 0
 @ 04,15 get nValorMensalidade    picture "@e 999,999.99" valid nValorMensalidade > 0
 @ 04,33 get nSerie               picture "99"            valid nSerie > 0
 @ 04,48 get nAnoLetivo           picture "9999"          valid nAnoLetivo > 2000 .and. nAnoLetivo > Year(dDataNascimentoAluno)
-@ 05,62 get cBolsista            picture cPictureTextos  valid cBolsista == "I" .or. cBolsista == "N" .or. cBolsista == "P"
+@ 05,62 get cBolsista            picture cPictureTextos  valid cBolsista $ "IPN"
 read
 
 @ 07,01 to 19,79
@@ -142,46 +142,23 @@ read
 nFaltasTotaisDisciplina := nFaltasDisciplinaBimestre1 + nFaltasDisciplinaBimestre2 + nFaltasDisciplinaBimestre3 + nFaltasDisciplinaBimestre4
 nNotaTotalDisciplina    := (nNotaDisciplinaBimestre1 + nNotaDisciplinaBimestre2 + nNotaDisciplinaBimestre3 + nNotaDisciplinaBimestre4) / 4
 
-if nNotaTotalDisciplina < 6
+if nNotaTotalDisciplina < 6 .or. nFaltasTotaisDisciplina > 56
    cResultado        := "R"
    cCorResultado     := "R/D"
    cReprovadoMateria := Alltrim(cDisciplina)
    nReprovado++
 
-elseif nFaltasTotaisDisciplina >= 48
+elseif nFaltasTotaisDisciplina > 48
+   @ 12,67 get cConselho1 picture cPictureTextos valid cConselho1 $ "SN"
+   @ 12,69 get cConselho2 picture cPictureTextos valid cConselho2 $ "SN"
+   @ 12,71 get cConselho3 picture cPictureTextos valid cConselho3 $ "SN"
+   read
 
-   if nFaltasTotaisDisciplina >= 49 .and. nFaltasTotaisDisciplina <= 56
-      @ 12,67 get cConselho1 picture cPictureTextos valid cConselho1 == "S" .or. cConselho1 == "N"
-      @ 12,69 get cConselho2 picture cPictureTextos valid cConselho1 == "S" .or. cConselho1 == "N"
-      @ 12,71 get cConselho3 picture cPictureTextos valid cConselho1 == "S" .or. cConselho1 == "N"
-      read
-
-      if cConselho1 == "N"
-         nConselhoReprovou++
-      endif
-
-      if cConselho2 == "N"
-         nConselhoReprovou++
-      endif
-
-      if cConselho3 == "N"
-         nConselhoReprovou++
-      endif
-
-      if nConselhoReprovou >= 2
-         cResultado         := "R"
-         cCorResultado      := "R/D"
-         cReprovadoMateria  := Alltrim(cDisciplina)
-         nReprovado++
-
-      endif
-
-   else
+   if (cConselho1 == cConselho2 .and. cConselho1 == "N") .or. (cConselho1 == cConselho3 .and. cConselho1 == "N") .or. (cConselho2 == cConselho3 .and. cConselho2 == "N")
       cResultado         := "R"
       cCorResultado      := "R/D"
       cReprovadoMateria  := Alltrim(cDisciplina)
       nReprovado++
-
    endif
 
 endif
@@ -234,46 +211,23 @@ read
 nFaltasTotaisDisciplina := nFaltasDisciplinaBimestre1 + nFaltasDisciplinaBimestre2 + nFaltasDisciplinaBimestre3 + nFaltasDisciplinaBimestre4
 nNotaTotalDisciplina    := (nNotaDisciplinaBimestre1 + nNotaDisciplinaBimestre2 + nNotaDisciplinaBimestre3 + nNotaDisciplinaBimestre4) / 4
 
-if nNotaTotalDisciplina < 6
+if nNotaTotalDisciplina < 6 .or. nFaltasTotaisDisciplina > 56
    cResultado        := "R"
    cCorResultado     := "R/D"
    cReprovadoMateria := Alltrim(cDisciplina)
    nReprovado++
 
-elseif nFaltasTotaisDisciplina >= 48
-
-   if nFaltasTotaisDisciplina >= 49 .and. nFaltasTotaisDisciplina <= 56
-      @ 14,67 get cConselho1 picture cPictureTextos valid cConselho1 == "S" .or. cConselho1 == "N"
-      @ 14,69 get cConselho2 picture cPictureTextos valid cConselho1 == "S" .or. cConselho1 == "N"
-      @ 14,71 get cConselho3 picture cPictureTextos valid cConselho1 == "S" .or. cConselho1 == "N"
-      read
-
-      if cConselho1 == "N"
-         nConselhoReprovou++
-      endif
-
-      if cConselho2 == "N"
-         nConselhoReprovou++
-      endif
-
-      if cConselho3 == "N"
-         nConselhoReprovou++
-      endif
-
-      if nConselhoReprovou >= 2
-         cResultado         := "R"
-         cCorResultado      := "R/D"
-         cReprovadoMateria  := Alltrim(cDisciplina)
-         nReprovado++
-
-      endif
-
-   else
+elseif nFaltasTotaisDisciplina > 48
+   @ 14,67 get cConselho1 picture cPictureTextos valid cConselho1 $ "SN"
+   @ 14,69 get cConselho2 picture cPictureTextos valid cConselho2 $ "SN"
+   @ 14,71 get cConselho3 picture cPictureTextos valid cConselho3 $ "SN"
+   read
+ 
+   if (cConselho1 == cConselho2 .and. cConselho1 == "N") .or. (cConselho1 == cConselho3 .and. cConselho1 == "N") .or. (cConselho2 == cConselho3 .and. cConselho2 == "N")
       cResultado         := "R"
       cCorResultado      := "R/D"
       cReprovadoMateria  := Alltrim(cDisciplina)
       nReprovado++
-
    endif
 
 endif
@@ -326,46 +280,23 @@ read
 nFaltasTotaisDisciplina := nFaltasDisciplinaBimestre1 + nFaltasDisciplinaBimestre2 + nFaltasDisciplinaBimestre3 + nFaltasDisciplinaBimestre4
 nNotaTotalDisciplina    := (nNotaDisciplinaBimestre1 + nNotaDisciplinaBimestre2 + nNotaDisciplinaBimestre3 + nNotaDisciplinaBimestre4) / 4
 
-if nNotaTotalDisciplina < 6
+if nNotaTotalDisciplina < 6 .or. nFaltasTotaisDisciplina > 56
    cResultado        := "R"
    cCorResultado     := "R/D"
    cReprovadoMateria := Alltrim(cDisciplina)
    nReprovado++
 
-elseif nFaltasTotaisDisciplina >= 48
+elseif nFaltasTotaisDisciplina > 48
+   @ 16,67 get cConselho1 picture cPictureTextos valid cConselho1 $ "SN"
+   @ 16,69 get cConselho2 picture cPictureTextos valid cConselho2 $ "SN"
+   @ 16,71 get cConselho3 picture cPictureTextos valid cConselho3 $ "SN"
+   read
 
-   if nFaltasTotaisDisciplina >= 49 .and. nFaltasTotaisDisciplina <= 56
-      @ 16,67 get cConselho1 picture cPictureTextos valid cConselho1 == "S" .or. cConselho1 == "N"
-      @ 16,69 get cConselho2 picture cPictureTextos valid cConselho1 == "S" .or. cConselho1 == "N"
-      @ 16,71 get cConselho3 picture cPictureTextos valid cConselho1 == "S" .or. cConselho1 == "N"
-      read
-
-      if cConselho1 == "N"
-         nConselhoReprovou++
-      endif
-
-      if cConselho2 == "N"
-         nConselhoReprovou++
-      endif
-
-      if cConselho3 == "N"
-         nConselhoReprovou++
-      endif
-
-      if nConselhoReprovou >= 2
-         cResultado         := "R"
-         cCorResultado      := "R/D"
-         cReprovadoMateria  := Alltrim(cDisciplina)
-         nReprovado++
-
-      endif
-
-   else
+   if (cConselho1 == cConselho2 .and. cConselho1 == "N") .or. (cConselho1 == cConselho3 .and. cConselho1 == "N") .or. (cConselho2 == cConselho3 .and. cConselho2 == "N")
       cResultado         := "R"
       cCorResultado      := "R/D"
       cReprovadoMateria  := Alltrim(cDisciplina)
       nReprovado++
-
    endif
 
 endif
@@ -418,46 +349,23 @@ read
 nFaltasTotaisDisciplina := nFaltasDisciplinaBimestre1 + nFaltasDisciplinaBimestre2 + nFaltasDisciplinaBimestre3 + nFaltasDisciplinaBimestre4
 nNotaTotalDisciplina    := (nNotaDisciplinaBimestre1 + nNotaDisciplinaBimestre2 + nNotaDisciplinaBimestre3 + nNotaDisciplinaBimestre4) / 4
 
-if nNotaTotalDisciplina < 6
+if nNotaTotalDisciplina < 6 .or. nFaltasTotaisDisciplina > 56
    cResultado        := "R"
    cCorResultado     := "R/D"
    cReprovadoMateria := Alltrim(cDisciplina)
    nReprovado++
 
-elseif nFaltasTotaisDisciplina >= 48
+elseif nFaltasTotaisDisciplina > 48
+   @ 18,67 get cConselho1 picture cPictureTextos valid cConselho1 $ "SN"
+   @ 18,69 get cConselho2 picture cPictureTextos valid cConselho2 $ "SN"
+   @ 18,71 get cConselho3 picture cPictureTextos valid cConselho3 $ "SN"
+   read
 
-   if nFaltasTotaisDisciplina >= 49 .and. nFaltasTotaisDisciplina <= 56
-      @ 18,67 get cConselho1 picture cPictureTextos valid cConselho1 == "S" .or. cConselho1 == "N"
-      @ 18,69 get cConselho2 picture cPictureTextos valid cConselho1 == "S" .or. cConselho1 == "N"
-      @ 18,71 get cConselho3 picture cPictureTextos valid cConselho1 == "S" .or. cConselho1 == "N"
-      read
-
-      if cConselho1 == "N"
-         nConselhoReprovou++
-      endif
-
-      if cConselho2 == "N"
-         nConselhoReprovou++
-      endif
-
-      if cConselho3 == "N"
-         nConselhoReprovou++
-      endif
-
-      if nConselhoReprovou >= 2
-         cResultado         := "R"
-         cCorResultado      := "R/D"
-         cReprovadoMateria  := Alltrim(cDisciplina)
-         nReprovado++
-
-      endif
-
-   else
+   if (cConselho1 == cConselho2 .and. cConselho1 == "N") .or. (cConselho1 == cConselho3 .and. cConselho1 == "N") .or. (cConselho2 == cConselho3 .and. cConselho2 == "N")
       cResultado         := "R"
       cCorResultado      := "R/D"
       cReprovadoMateria  := Alltrim(cDisciplina)
       nReprovado++
-
    endif
 
 endif
@@ -476,14 +384,17 @@ if cBolsista == "I"
    if nReprovado >= 1
       cResultadoFinal := "Aluno Reprovado por ser bolsista e ter levado 1 ou mais dependencias"
       cMensalidade    := "Mensalidade continuara a mesma pois ao ser reprovado ele perde a bolsa"
-   endif
 
+   else
    nValorMensalidadeNovo -= (nValorMensalidade * 98) / 100
-
    cResultadoFinal := "O Aluno Bolsista Foi Aprovado sem Dependencias"
    cMensalidade    := "A mensalidade sera reduzida em 98%. Nova Mensalidade: R$ " + Alltrim(Str(nValorMensalidadeNovo))
 
+   endif
+
 elseif cBolsista == "P"
+
+   nValorMensalidadeNovo -= (nValorMensalidade * 50) / 100
 
    if nReprovado = 1
       cResultadoFinal := "Aluno Parcialmente Bolsista Aprovado com Uma Dependencia em " + Alltrim(cReprovadoMateria)
@@ -493,13 +404,11 @@ elseif cBolsista == "P"
       cResultadoFinal := "ALuno reprovado por ser bolsista parcial e ter levado 2 ou mais dependencias"
       cMensalidade    := "Mensalidade coninuara a mesma pois ao ser reprovado ele perder a bolsa"
 
+   else
+      cResultadoFinal := "O Aluno Parcialmente Bolsista Foi Aprovado sem Dependencias"
+      cMensalidade    := "A mensalidade sera reduzida em 98%. Nova Mensalidade: R$ " + Alltrim(Str(nValorMensalidadeNovo))
+
    endif
-
-   nValorMensalidadeNovo -= (nValorMensalidade * 50) / 100
-
-   cResultadoFinal := "O Aluno Parcialmente Bolsista Foi Aprovado sem Dependencias"
-   cMensalidade    := "A mensalidade sera reduzida em 98%. Nova Mensalidade: R$ " + Alltrim(Str(nValorMensalidadeNovo))
-
 elseif cBolsista == "N"
 
    if nReprovado = 1

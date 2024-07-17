@@ -1,5 +1,5 @@
 
-// Cabe‡alho
+// Cabeï¿½alho
 setmode (25,80)
 set date British
 set epoch to 1940
@@ -33,7 +33,7 @@ elseif nDiaSemanaVenda = 7
 
 endif
 
-//Para pegar o mˆs
+//Para pegar o mï¿½s
 
 if nMesVenda = 1
    cMesVenda := "Janeiro"
@@ -77,3 +77,16 @@ endif
 @ 19,01 say cLugarDeVenda + " , " + cDiaVenda + " de " + cMesVenda + " de " + cAnoVenda + " (" + cDiaSemanaVenda + ")"
 
 
+if LastKey() == 27
+   
+   nOpcao := Alert("Deseja Sair do Programa?",{"Sim","Nao"},"N/W")
+   
+   if nOpcao == 1
+      exit
+   
+   else
+      loop
+   
+   endif
+
+endif

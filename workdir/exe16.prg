@@ -26,34 +26,31 @@ read
 
 @ 04,01 to 24,79
 
-cFraseParaCopiar := Transform(nContador, cPictureNumeros) + " " + AllTrim(cNomePessoa)
-nTamanhoFrase    := Len(cFraseParaCopiar)
-nAdicionarColuna  := nTamanhoFrase
+nTamanhoFrase    := Len(Transform(nContador, cPictureNumeros) + " " + AllTrim(cNomePessoa))
 
 do while nContador < nQuantidade 
+   
+   nTamanhoProximo := nColuna + (nTamanhoFrase * 2)
+   
    if nLinha > 23
-       
-      if nColuna = 2
-
-         nColuna += nAdicionarColuna 
-         nLinha  := 5 
-      elseif nColuna = 2 + nAdicionarColuna
-
-         nColuna += nAdicionarColuna 
-         nLinha  := 5
-
-      elseif nColuna = 2 + (nAdicionarColuna * 2 )
+      
+      if nTamanhoProximo >= 78
          
-         nColuna += nAdicionarColuna
-         nLinha  := 5
+         @ 05,02 clear to 23,78
 
-      endif
-               
+         nLinha  := 5
+         nColuna := 2
+   
+      else
+
+         nColuna += 1 + nTamanhoFrase   
+         nLinha  := 5
+      
+      endif           
+   
    endif
    
-	@ nLinha++,nColuna say cFraseParaCopiar 
-    
-   nContador++
+	@ nLinha++,nColuna say Transform(nContador++, cPictureNumeros) + " " + AllTrim(cNomePessoa) 
 
    Inkey(0.5)
    
