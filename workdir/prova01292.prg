@@ -17,25 +17,6 @@ clear
 cPictureTextos := "@!"
 cPictureNotas  := "99.9"
 cPictureFaltas := "99"
-nLinha         := 12
-
-nMaterias      := 1
-
-//Resultado da nota e faltas do aluno
-cCorResultado       := "G/D"
-cResultado          := "A"
-cResultadoFinal     := "O Aluno Foi Aprovado sem Dependencias"
-cMensalidade        := "A mensalidade Continua a mesma"
-
-nReprovado            := 0
-nValorMensalidadeNovo := 0
-
-cReprovadoMateria := ""
-
-nConselhoReprovou := 0
-cConselho1        := Space(1)
-cConselho2        := Space(1)
-cConselho3        := Space(1)
 
 //Dados instituição
 cNomeInstituicao     := "UniSG - Universidade unida da SG."
@@ -43,43 +24,38 @@ cEnderecoInstituicao := "Aquela Rua Numero 560"
 
 cDataAtual           := DToC(Date())
 
-//Dados Aluno
-cNomeAluno           := Space(50)
-cCursoAluno          := Space(20)
-cBolsista            := Space(1)
-
-nSerie                := 0
-nAnoLetivo            := 0
-nValorMensalidade     := 0
-
-dDataNascimentoAluno := CToD("")
-
-//Dados Disciplinas Aluno
-cDisciplina     := Space(15)
-
-//Nota Diciplina
-nNotaDisciplinaBimestre1 := 0
-nNotaDisciplinaBimestre2 := 0
-nNotaDisciplinaBimestre3 := 0
-nNotaDisciplinaBimestre4 := 0
-
-nNotaTotalDisciplina := 0
-
-//Faltas Diciplina
-nFaltasDisciplinaBimestre1 := 0
-nFaltasDisciplinaBimestre2 := 0
-nFaltasDisciplinaBimestre3 := 0
-nFaltasDisciplinaBimestre4 := 0
-
-nFaltasTotaisDisciplina := 0
-
-nSaida := 0
-
 //============================================================================\\
 //=====================================================================================================================================================================\\
 
 do while .t.
+   
+   clear
+   
+   nValorMensalidadeNovo := 0
+   nReprovado            := 0
+   cReprovadoMateria     := ""
 
+   //Dados Aluno
+   cNomeAluno           := Space(50)
+   cCursoAluno          := Space(20)
+   cBolsista            := Space(1)
+   
+   nSerie                := 0
+   nAnoLetivo            := 0
+   nValorMensalidade     := 0
+   
+   dDataNascimentoAluno := CToD("")
+
+   //Utilitarios
+   nLinha              := 12
+   nMaterias           := 1
+   cCorResultado       := "G/D"
+   cResultado          := "A"
+   cResultadoFinal     := "O Aluno Foi Aprovado sem Dependencias"
+   cMensalidade        := "A mensalidade Continua a mesma"
+
+   nSaida := 0
+   
    @ 00,01 to 06,79
 
    @ 01,02 say cNomeInstituicao + " Endereco: " + cEnderecoInstituicao
